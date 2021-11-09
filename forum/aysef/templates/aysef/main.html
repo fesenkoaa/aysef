@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{title}}</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center" action="{% url 'main' %}">our rules and regulations</h1>
+    <p class="text-center">read next</p>
+    <p>{{request.user.get_username}}</p>
+{% endblock %}
