@@ -40,6 +40,9 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = '-created_at',
+
     def __repr__(self):
         return f'<{Article.__name__} ({self.auth}, {self.category}, {self.pk})>'
 
@@ -47,4 +50,4 @@ class Article(models.Model):
         return f'{self.auth}, {self.category}, {self.pk}'
 
     def get_absolute_url(self):
-        return reverse('forum', kwargs={'unique_pk': self.pk})
+        return reverse('article', kwargs={'pk': self.pk})

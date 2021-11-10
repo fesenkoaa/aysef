@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'delete_article' pk=obj.id%}" class="form-control">
+        {% csrf_token %}
+        <h2 class="text-center mt-5">Do you want to delete "{{obj.title}}"?</h2>
+        <div class="text-center">
+            <a class="btn text-secondary" href="{% url 'article' pk=obj.id%}">cancel</a>
+            <button class="btn btn-danger" type="submit">delete</button>
+        </div>
+    </form>
+{% endblock %}

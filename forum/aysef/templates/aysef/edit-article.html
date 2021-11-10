@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mt-3">EDIT ARTICLE</h1>
+    <div class="container">
+        <form method="post" action="{% url 'edit_article' pk=object.id %}"  class="form-control">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn btn-primary mt-2" type="submit">edit</button>
+        </form>
+    </div>
+{% endblock %}
