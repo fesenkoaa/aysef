@@ -17,7 +17,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class SupportAdmin(admin.ModelAdmin):
     list_display = ('id', 'number', 'message', 'time')
-    list_display_links = ('number',)
     search_fields = ('number',)
 
 

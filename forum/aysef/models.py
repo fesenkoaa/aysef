@@ -6,7 +6,7 @@ import random
 
 class Support(models.Model):
 
-    number = models.DecimalField(max_digits=30, decimal_places=2, verbose_name='Number')
+    number = models.IntegerField(verbose_name='Number')
     message = models.CharField(max_length=255, verbose_name='Message')
     time = models.DateTimeField(auto_now_add=True, verbose_name='Time')
 
@@ -17,7 +17,7 @@ class Support(models.Model):
         return f'<{Support.__name__} ({self.number})>'
 
     def __str__(self):
-        return self.number
+        return f'{self.number}'
 
 
 class Category(models.Model):
@@ -28,7 +28,7 @@ class Category(models.Model):
         return f'<{Category.__name__} ({self.pk} {self.category})>'
 
     def __str__(self):
-        return f'{self.pk} {self.category}'
+        return f'{self.category}'
 
 
 class Article(models.Model):

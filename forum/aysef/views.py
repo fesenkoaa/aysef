@@ -1,5 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import *
+from .forms import *
+from .mixins import *
+from datetime import datetime
+
 
 
 class MainPage(View):
@@ -15,16 +22,24 @@ class AboutPage(View):
     pass
 
 
-class SendMessagePage(View):
-    pass
+class SendMessagePage(AddObjectMixin, View):
+
+    model = Support
+    template = 'aysef/message.html'
+    form = MessageForm
 
 
 class Forum(View):
     pass
 
 
-class Themes(View):
-    pass
+class Themes(ListView):
+    model = Category
+    template_name = 'aysef/themes.html'
+    paginate_by = 15
+    extra_context = {
+        'title': 'Themes',
+    }
 
 
 class TheTheme(View):
