@@ -4,23 +4,22 @@ from .models import *
 
 class ArticleAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'auth', 'theme', 'title', 'created_at', 'updated_at')
+    list_display = ('id', 'auth', 'category', 'title', 'created_at', 'updated_at')
     list_display_links = ('title',)
     search_fields = ('title',)
-    list_filter = ('auth', 'theme')
+    list_filter = ('auth', 'category')
 
 
-class ThemeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'theme')
-    list_display_links = ('theme',)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'category')
+    list_display_links = ('category',)
 
 
 class SupportAdmin(admin.ModelAdmin):
     list_display = ('id', 'number', 'message', 'time')
-    list_display_links = ('number',)
     search_fields = ('number',)
 
 
 admin.site.register(Article, ArticleAdmin)
-admin.site.register(Theme, ThemeAdmin)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Support, SupportAdmin)

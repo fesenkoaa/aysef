@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container md-5" action="{% url 'themes' %}">
+        <table class="table table-hover">
+            {% for obj in page_obj %}
+            <tr>
+                <td>{{ obj.category }} - Articles(values_of_articles, where category == {{ obj.category }})</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
