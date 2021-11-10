@@ -5,12 +5,12 @@
 {% endblock %}>
 
 {% block content %}
-    <h2 class="text-center mt-3">CONTACT US</h2>
+    <h1 class="text-center mt-3">REGISTRATION</h1>
     <div class="container">
-        <form method="post" action="{% url 'support' %}" class="form-control">
+        <form method="post" action="{% url 'registration' %}" class="form-control">
             {% csrf_token %}
             {{ form }}
-            <button type="submit" class="btn btn-success mt-2">send</button>
+            <button class="btn btn-secondary" type="submit">reg()</button>
         </form>
     </div>
 {% endblock %}

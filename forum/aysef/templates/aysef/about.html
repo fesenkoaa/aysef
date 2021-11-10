@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h1>{{ title }}</h1>
+        <h2 action="{% url 'main' %}">our rules and regulations</h2>
+        <p>read next</p>
+    </div>
+
+{% endblock %}

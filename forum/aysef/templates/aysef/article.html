@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="container md-5" action="{% url 'forum' %}">
+    <div class="col p-4 d-flex flex-column position-static">
+        <form>
+            <table>
+                <strong class="text-secondary">{{auth}}({{theme}})</strong>
+                <h3 class="mb-0">{{title}}</h3>
+                <p class="card-text mb-auto">{{content}}</p>
+                <div class="mb-1 text-muted">{{obj.created_at}}</div>
+            </table>
+        <hr>
+        {% if auth == request.user%}
+        <a class="btn btn-primary" href="{% url 'edit_article' id %}">edit</a>
+        <a class="btn btn-danger" href="{% url 'delete_article' id %}">delete</a>
+        {%endif%}
+        </form>
+    </div>
+</div>
+{% endblock %}

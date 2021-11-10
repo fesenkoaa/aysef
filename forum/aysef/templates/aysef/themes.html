@@ -9,7 +9,9 @@
         <table class="table table-hover">
             {% for obj in page_obj %}
             <tr>
-                <td>{{ obj.category }} - Articles(values_of_articles, where category == {{ obj.category }})</td>
+                <td><a class="nav-link" aria-current="page" href="{% url 'theme' obj.id %}">
+                    {{ obj.category }} ->
+                </a></td>
             </tr>
             {% endfor %}
         </table>

@@ -5,7 +5,6 @@ from datetime import datetime
 import pywhatkit as wa
 
 
-
 class AddObjectMixin:
 
     model = None
@@ -37,4 +36,4 @@ class AddObjectMixin:
             #
             # return redirect('main')
 
-        return redirect('main')
+        return redirect('forum')
