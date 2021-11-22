@@ -9,7 +9,13 @@
             {% for article in obj %}
             <div class="col p-4 d-flex flex-column position-static">
                   <form>
-                      <strong class="text-secondary">{{article.auth}}({{article.category}})</strong>
+                      <strong class="text-secondary">
+                          {% if request.user == article.auth %}
+                          <a style="text-decoration:none" href="{% url 'my' user.id %}">{{article.auth}} ({{article.category}})</a>
+                          {% else %}
+                            {{article.auth}} ({{article.category}})
+                          {% endif %}
+                      </strong>
                       <h3 class="mb-0">{{article.title}}</h3>
                       <p class="card-text mb-auto">{{article.text}}</p>
                       <div class="mb-1 text-muted">{{article.created_at}}</div>

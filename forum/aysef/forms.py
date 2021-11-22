@@ -1,15 +1,15 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Support, Category, Article
+from .models import EmailMessage, Category, Article
 from django.contrib.auth.models import User
 
 
 class MessageForm(forms.ModelForm):
 
-    number = forms.IntegerField(
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'your whatsapp phone without "+"'}),
-        label="Phone"
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'your email'}),
+        label="Email"
     )
     message = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'message'}),
@@ -17,8 +17,8 @@ class MessageForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Support
-        fields = ('number', 'message')
+        model = EmailMessage
+        fields = ('email', 'message')
 
 
 class AddArticleFrom(forms.ModelForm):
@@ -91,3 +91,15 @@ class ChangePasswordForm(PasswordChangeForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control',
                                           'placeholder': 'old password'}),
         label='Enter old password:')
+
+
+class ResetPasswordForm(forms.Form):
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'your email'}),
+        label="Email"
+    )
+
+    class Meta:
+        model = EmailMessage
+        fields = ('email',)

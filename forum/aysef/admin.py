@@ -15,11 +15,11 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display_links = ('category',)
 
 
-class SupportAdmin(admin.ModelAdmin):
-    list_display = ('id', 'number', 'message', 'time')
-    search_fields = ('number',)
+class EmailMessageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'email', 'message', 'time')
+    search_fields = ('email',)
 
 
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Support, SupportAdmin)
+admin.site.register(EmailMessage, EmailMessageAdmin)
