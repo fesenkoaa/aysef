@@ -261,7 +261,7 @@ class ResetPassword(View):
                     'Reset Password',
                     f'Your new password: {new_password}',
                     from_email=from_email,
-                    recipient_list=[user.email],
+                    recipient_list=user.email,
                     fail_silently=False,
                 )
                 messages.success(request, f'New password was sent to {user.email}')
