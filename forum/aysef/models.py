@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 import random
 
 
-class Support(models.Model):
+class EmailMessage(models.Model):
 
-    number = models.IntegerField(verbose_name='Number')
+    email = models.EmailField(verbose_name='Email')
     message = models.CharField(max_length=255, verbose_name='Message')
     time = models.DateTimeField(auto_now_add=True, verbose_name='Time')
 
@@ -14,10 +14,10 @@ class Support(models.Model):
         ordering = '-time',
 
     def __repr__(self):
-        return f'<{Support.__name__} ({self.number})>'
+        return f'<{EmailMessage.__name__} ({self.email})>'
 
     def __str__(self):
-        return f'{self.number}'
+        return f'{self.email}'
 
 
 class Category(models.Model):

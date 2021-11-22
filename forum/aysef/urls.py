@@ -19,7 +19,7 @@ urlpatterns = [
     path('registration/', Reg.as_view(), name='registration'),
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
-    # path('reset-password/', ResetPassword.as_view(), name='reset_password'),
+    path('reset-password/', ResetPassword.as_view(), name='reset_password'),
     path('change-password/', ChangePassword.as_view(), name='change_password')
 ]
 

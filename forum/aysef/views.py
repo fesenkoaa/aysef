@@ -1,13 +1,16 @@
+import string
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth import login, logout, get_user_model
 from .models import *
 from .forms import *
 from .mixins import *
-from datetime import datetime
+from config import *
 
 
 class MainPage(View):
@@ -44,19 +47,22 @@ class SendMessagePage(AddObjectMixin, View):
         form = MessageForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            try:
+                form.save()
+                send_mail(
+                    subject=f'FROM {email}',
+                    message=message,
+                    from_email=from_email,
+                    recipient_list=recipient_list,
+                    fail_silently=False)
+            except BadHeaderError:
+                messages.error(request, 'something is wrong')
+                return render(request, 'aysef/message.html', {'form': form})
 
-            if form == MessageForm:
-
-                number = Support.objects.get(number=form.cleaned_data['number'])
-                message = Support.objects.get(message=form.cleaned_data['message'])
-                message_text = f'{number} \n{message}'
-                wa.sendwhatmsg("+48788608806", message_text, time_hour=int(datetime.now().strftime('%H')),
-                               time_min=int(datetime.now().strftime('%M')) + 1)
-
+            messages.success(request, 'your message was sent')
             return redirect('main')
-
-        return render(request, 'aysef/message.html', {'form': form})
 
 
 class Forum(ListView):
@@ -131,11 +137,11 @@ class TheArticle(View):
             'auth': obj.auth,
             'theme': obj.category,
             'time': str(obj.created_at)[:16],
-            'id': obj.id
+            'id': obj.id,
+            'obj': obj
         }
 
         return render(request, 'aysef/article.html', context)
-
 
 
 class AddArticle(AddObjectMixin, View):
@@ -231,8 +237,38 @@ class Logout(View):
         return redirect('login')
 
 
-# class ResetPassword(View):
-#     pass
+class ResetPassword(View):
+
+    def get(self, request):
+        form = ResetPasswordForm()
+        content = {
+            'form': form,
+        }
+        return render(request, 'aysef/reset-password.html', {'form': form})
+
+    def post(self, request):
+        form = ResetPasswordForm(request.POST)
+
+        if form.is_valid():
+            new_password = ''.join(random.sample(string.printable, 10))
+            print(new_password)
+
+            try:
+                user = User.objects.get(email=form.cleaned_data['email'])
+                user.set_password(new_password)
+                user.save()
+                send_mail(
+                    'Reset Password',
+                    f'Your new password: {new_password}',
+                    from_email=from_email,
+                    recipient_list=[user.email],
+                    fail_silently=False,
+                )
+                messages.success(request, f'New password was sent to {user.email}')
+                return redirect('login')
+            except User.DoesNotExist:
+                messages.error(request, f'No one user has the same email!')
+                return render(request, 'aysef/reset-password.html', {'form': form})
 
 
 class ChangePassword(View):

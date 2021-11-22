@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import MessageForm
-from .models import Support
+from .models import EmailMessage
 from datetime import datetime
-import pywhatkit as wa
 
 
 class AddObjectMixin:
@@ -25,15 +24,5 @@ class AddObjectMixin:
 
         if form.is_valid():
             form.save()
-
-            # if form == MessageForm:
-            #
-            #     number = Support.objects.get(number=form.cleaned_data['number'])
-            #     message = Support.objects.get(message=form.cleaned_data['message'])
-            #     message_for_send = f'{number} \n{message}'
-            #     wa.sendwhatmsg("+48788608806", message_for_send, time_hour=int(datetime.now().strftime('%H')),
-            #                    time_min=int(datetime.now().strftime('%M')))
-            #
-            # return redirect('main')
 
         return redirect('forum')

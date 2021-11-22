@@ -1,1 +1,8 @@
 .idea
+forum/.DS_Store
+.DS_Store
+forum/aysef/config.py
+forum/aysef/__pycache__/
+forum/config.py
+forum/__pycache__/
+__pycache__/
